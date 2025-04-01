@@ -7,13 +7,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.leon.pdfreorder.controller.MainController">
     
    <children>
       <Text layoutX="289.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arte Guapo" />
       <Button fx:id="btnLoadFile" layoutX="55.0" layoutY="68.0" mnemonicParsing="false" onAction="#btnEvent" text="Seleccionar archivo" />
-      <TableView fx:id="tableFiles" layoutX="195.0" layoutY="68.0" prefHeight="115.0" prefWidth="371.0">
+      <TableView fx:id="tableFiles" layoutX="195.0" layoutY="68.0" onMouseClicked="#mouseEvent" prefHeight="115.0" prefWidth="371.0">
         <columns>
           <TableColumn fx:id="colFileName" prefWidth="370.0" text="Nombre archivo" />
         </columns>

@@ -1,7 +1,7 @@
 com\leon\pdfreorder\Main.class
 module-info.class
-com\leon\pdfreorder\PrimaryController.class
 com\leon\pdfreorder\App.class
+com\leon\pdfreorder\utils\other\PopUp.class
 com\leon\pdfreorder\controller\MainController.class
-com\leon\pdfreorder\SecondaryController.class
+com\leon\pdfreorder\service\FileService.class
 com\leon\pdfreorder\utils\Constants.class
