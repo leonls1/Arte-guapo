@@ -7,6 +7,7 @@ package com.leon.pdfreorder.controller;
 import com.leon.pdfreorder.service.FileService;
 import com.leon.pdfreorder.utils.other.PopUp;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -47,7 +48,7 @@ public class MainController implements Initializable{
     private String columnName = "nombre producto";
 
     @FXML
-    void btnEvent(ActionEvent event) {
+    void btnEvent(ActionEvent event) throws IOException {
         Object evt = event.getSource();
         switch (((Node) evt).getId()) {
             case "btnLoadFile" ->
@@ -72,14 +73,15 @@ public class MainController implements Initializable{
     }
 //------------------------------------------------------------
     private void loadFile() {
-        files = FXCollections.observableArrayList(fileService.selectFiles());
-        files.forEach(System.out::println);
+        files = Optional.of(FXCollections.observableArrayList(fileService.selectFiles())).orElse(null);
+
         tableFiles.setItems(files);
     }
 
-    private void reorderFileAndDownload() {
+    private void reorderFileAndDownload() throws IOException {
         if (popup.confirmMessage("Reordenar archivo", "", "reordenar y descargar archivo \n por la columna:" + columnName)) {
-            fileService.downloadFile(fileService.reorderFile(fileSelected));
+          
+            fileService.reorderRowsFromTableFile(fileSelected, "reorderedFile.PDF", 1);
         }
     }
 
