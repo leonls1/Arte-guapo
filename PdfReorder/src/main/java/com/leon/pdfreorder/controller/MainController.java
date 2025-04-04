@@ -79,9 +79,8 @@ public class MainController implements Initializable{
     }
 
     private void reorderFileAndDownload() throws IOException {
-        if (popup.confirmMessage("Reordenar archivo", "", "reordenar y descargar archivo \n por la columna:" + columnName)) {
-          
-            fileService.reorderRowsFromTableFile(fileSelected, "reorderedFile.PDF", 1);
+        if (popup.confirmMessage("Reordenar archivo", "", "reordenar y descargar archivo \n por la columna:" + columnName)) {          
+            fileService.reorderRowsFromTableFile(fileSelected, "reorderedFile.PDF", 0);
         }
     }
 

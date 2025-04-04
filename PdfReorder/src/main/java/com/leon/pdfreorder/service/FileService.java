@@ -54,12 +54,13 @@ public class FileService {
             List<Table> tables = algorithm.extract(page);
 
             //for every table add them into the tableData resulted
-            for (Table table : tables) {
-                tableData.addAll(parseTableCollection(table));
-            }
+//            for (Table table : tables) {
+//                tableData.addAll(parseTableCollection(table));
+//            }
+            tableData.addAll(filterTableFromText(tables.getFirst()));
         }
         document.close();
-        
+
         //sorting rows of the dataTable
         reoderTableByIndex(tableData, orderIndex);
 
@@ -83,7 +84,7 @@ public class FileService {
             //iterates for every row
             for (RectangularTextContainer cell : row) {
                 //adding the content of the current cell to the actual rowData
-                rowData.add(cell.getText().trim());
+                rowData.add(cell.getText());
             }
             tableData.add(rowData);
         }
@@ -116,6 +117,43 @@ public class FileService {
         document.close();
 
         System.out.println("new pdf document created at:" + destinyPath);
+
+    }
+
+    private List<List<String>> filterTableFromText(Table table) {
+        List<List<String>> parsedTable = parseTableCollection(table);
+        //remove the 9 first columns
+        for (int i = 0; i < 9; i++) {
+            parsedTable.removeFirst();
+        }
+        //remove the last 2 columns
+        parsedTable.removeLast();
+        parsedTable.removeLast();
+
+        return parsedTable;
+    }
+
+    private Table removeNonTables(List<Table> tables) {
+        Table realTable = null;
+        int bestScore = 0; //to compare and get the most possible table
+        for (Table table : tables) {
+            List<List<String>> rows = parseTableCollection(table);
+            
+            int validRowCount = 0;
+            int nonEmptyCellCount = 0;
+            
+            for(List<String> row: rows){
+                long nonEmptyColCount = row.stream().filter(cell -> !cell.isBlank()).count();
+                if(nonEmptyColCount >= 4){
+                    validRowCount++;
+                }
+            }
+            
+                
+
+        }
+
+        return realTable;
 
     }
 
